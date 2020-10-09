@@ -2,7 +2,7 @@
 #define grafom_hpp
 #include <stdexcept>
 #include <list>
-#include "C:\Users\Jefferson Marques\Documents\EDA\include\grafo.hpp"
+#include "grafo.hpp"
 
 
 //Implementação de um grafo como uma matriz de adjacência
@@ -90,6 +90,23 @@ class GrafoM:public Grafo{
         // Determine se uma aresta está no grafo
         bool isEdge(int v1 , int v2){
             return (matriz[v1][v2] > 0);
+        }
+
+        int peso( int v1 ,int v2 ){
+            verificarVertice(v1);
+            verificarVertice(v2);
+            if(isEdge(v1,v2))
+                return matriz[v1][v2];
+            else return 0;
+        }
+        int getMark(int v){
+            verificarVertice(v);
+            return mark[v];
+        }
+
+        void setMark(int v, int val){
+            verificarVertice(v);
+            mark[v] = val;
         }
 };
 
