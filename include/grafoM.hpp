@@ -47,6 +47,50 @@ class GrafoM:public Grafo{
         int n(){return N;}
         int m(){return M;}
         // Retorna uma lista contendo as bordas incidentes de v
+        std::list<Edge>& bordaIncidente(int v){ 
+            std::list<Edge> *lst =  new std::list<Edge>();
+            for(int i = 0; i < N; ++i){
+                if(matriz[v][i] != 0){
+                    lst->push_back(Edge(i,matriz[v][i]));
+                }
+            }
+            return *lst;
+        }
+
+        // Retorna uma lista contendo os vizinhos do vértice v
+        std::list<int>& vizinho(int v){
+            std::list<int> *lst = new std::list<int>();
+            for(int i = 0;i < N; ++i){
+                if(matriz[v][i] != 0){
+                    lst->push_back(i);
+                }
+            }
+            return *lst;
+        }
+
+        void setPesoBorda(int v1 , int v2 , int wgt){
+            if(wgt <= 0 ) throw std::runtime_error("Peso negativo ou igual a zero");
+            if( !isEdge(v1,v2))
+                ++M;
+            matriz[v1][v2] = wgt;
+        }
+
+        // Adicionar uma borda
+        void addEdge(int v1 , int v2){
+            setPesoBorda(v1 , v2 , 1);
+        }
+        
+        // Excluir uma borda
+        void delEdge(int v1, int v2){
+            if(isEdge(v1, v2)){
+                M--;
+                matriz[v1][v2] = 0;
+            }
+        }
+        // Determine se uma aresta está no grafo
+        bool isEdge(int v1 , int v2){
+            return (matriz[v1][v2] > 0);
+        }
 };
 
 #endif // !grafom_hpp
